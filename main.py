@@ -2,7 +2,7 @@ import os, piexif
 from datetime import datetime
 
 ### SETTINGS ###
-dir = r"C:\Users\vasil\YandexDisk\photo\_photo\201109_Италия"
+dir = r"C:\Users\vasil\YandexDisk\photo\_photo\Италия (свадебное путешествие) 2011"
 newDate = datetime(2011, 9, 15, 0, 0, 0).strftime("%Y:%m:%d %H:%M:%S")
 ################
 
