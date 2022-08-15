@@ -3,8 +3,8 @@ from datetime import datetime
 
 ### SETTINGS ###
 ext = 'jpg'
-dir = r"C:\Users\vasil\YandexDisk\photo\20220509_Google Фото\Photos from 2018"
-newDate = datetime(2018, 1, 1, 0, 0, 0).strftime("%Y:%m:%d %H:%M:%S")
+dir = r"C:\Users\vasil\YandexDisk\photo\2010-07_Соловки"
+newDate = datetime(2010, 7, 1, 0, 0, 0).strftime("%Y:%m:%d %H:%M:%S")
 ################
 
 
@@ -35,5 +35,11 @@ for filename in os.listdir(dir):
             exif_bytes = piexif.dump(exif_dict)
             piexif.insert(exif_bytes, picPath) ### SAVING PHOTO ###
             print(filename + ': date changed to ' + str(newDate))
+        
+        # if filename == 'SNV30607(1).JPG':
+        #     print('!!!!!!!!') 
+        #     print(filename) 
+        #     print(str(dateTimeOriginal))
+
 
 print('Changed files: ' + str(changedFiles))
