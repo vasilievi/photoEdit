@@ -3,9 +3,9 @@ from datetime import datetime
 
 ### SETTINGS ###
 ext = 'jpg'
-dir = r"C:\Users\vasil\YandexDisk\photo\Олин компьютер\ВСЕ ФОТО\2012-02_Фотокнига - Оле 25 л"
+dir = r"C:\Users\vasil\YandexDisk\photo\2011-08_Девишник"
 logFile = r"C:\temp\pyLog.txt"
-newDate = datetime(2012, 2, 17, 0, 0, 0).strftime("%Y:%m:%d %H:%M:%S")
+newDate = datetime(2011, 8, 1, 0, 0, 0).strftime("%Y:%m:%d %H:%M:%S")
 ################
 
 def printToFile(text):
@@ -39,7 +39,7 @@ for root, dirs, files in os.walk(dir):
             changeDate = True
 
         if dateTimeOriginal > now:
-            printToFile(picPath + ': ' + str(dateTimeOriginal))
+            printToFile(picPath + ': incorrect date ' + str(dateTimeOriginal))
             changeDate = True
 
         if changeDate:
