@@ -1,7 +1,7 @@
 # photoEdit
 
 ## Description
-Corrects *.jpg photos capture-date in folder.
+Corrects *.jpg photos capture-date in folder and subfolders.
 
 ## Quick start
 1. Set settings

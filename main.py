@@ -3,30 +3,43 @@ from datetime import datetime
 
 ### SETTINGS ###
 ext = 'jpg'
-dir = r"C:\Users\vasil\YandexDisk\photo\2010-07_Соловки"
-newDate = datetime(2010, 7, 1, 0, 0, 0).strftime("%Y:%m:%d %H:%M:%S")
+dir = r"C:\Users\vasil\YandexDisk\photo\Олин компьютер\ВСЕ ФОТО\2012-02_Фотокнига - Оле 25 л"
+logFile = r"C:\temp\pyLog.txt"
+newDate = datetime(2012, 2, 17, 0, 0, 0).strftime("%Y:%m:%d %H:%M:%S")
 ################
 
+def printToFile(text):
+    print(text)
+    now = datetime.now()
+    file = open(logFile, "a")
+    file.write(str(now) + ": " + text + "\n")
+    file.close()
 
 now = datetime.now()
 changedFiles = 0
 
-for filename in os.listdir(dir):
-    if filename[-3:].upper() == ext.upper():
-        picPath = dir + '\\' + filename
+for root, dirs, files in os.walk(dir):
+    for file in files:
+        picPath = os.path.join(root,file)
+        
+        if picPath[-3:].upper() != ext.upper():
+            printToFile(picPath + ': is not ' + ext)
+            continue
+        
         exif_dict = piexif.load(picPath)
-
         changeDate = False
+
         try:
-            dateTimeOriginal = str(exif_dict['Exif'][piexif.ExifIFD.DateTimeOriginal])
-            dateTimeOriginal = dateTimeOriginal[2:21]
-            dateTimeOriginal = datetime.strptime(dateTimeOriginal, '%Y:%m:%d %H:%M:%S')
+            dateTimeOriginalString = str(exif_dict['Exif'][piexif.ExifIFD.DateTimeOriginal])
+            dateTimeOriginalString = dateTimeOriginalString[2:21]
+            dateTimeOriginal = datetime.strptime(dateTimeOriginalString, '%Y:%m:%d %H:%M:%S')
         except:
-            print(filename + ': error')
+            dateTimeOriginal = datetime.strptime(newDate, '%Y:%m:%d %H:%M:%S')
+            printToFile(picPath + ': error reading date')
             changeDate = True
 
         if dateTimeOriginal > now:
-            print(filename + ': ' + str(dateTimeOriginal))
+            printToFile(picPath + ': ' + str(dateTimeOriginal))
             changeDate = True
 
         if changeDate:
@@ -34,12 +47,7 @@ for filename in os.listdir(dir):
             exif_dict['Exif'][piexif.ExifIFD.DateTimeOriginal] = newDate
             exif_bytes = piexif.dump(exif_dict)
             piexif.insert(exif_bytes, picPath) ### SAVING PHOTO ###
-            print(filename + ': date changed to ' + str(newDate))
-        
-        # if filename == 'SNV30607(1).JPG':
-        #     print('!!!!!!!!') 
-        #     print(filename) 
-        #     print(str(dateTimeOriginal))
+            printToFile(picPath + ': date changed to ' + str(newDate))
 
+printToFile('Changed files: ' + str(changedFiles))
 
-print('Changed files: ' + str(changedFiles))
