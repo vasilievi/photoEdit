@@ -3,9 +3,9 @@ from datetime import datetime
 
 ### SETTINGS ###
 ext = 'jpg'
-dir = r"C:\Users\vasil\YandexDisk\photo\2010-04-17_Ксюша приехала\haloween 2010"
+dir = r"C:\Users\vasil\YandexDisk\photo\.incorrect"
 logFile = r"C:\temp\pyLog.txt"
-newDate = datetime(2010, 10, 1, 0, 0, 0).strftime("%Y:%m:%d %H:%M:%S")
+newDate = datetime(2018, 1, 1, 0, 0, 0).strftime("%Y:%m:%d %H:%M:%S")
 ################
 
 def printToFile(text):
